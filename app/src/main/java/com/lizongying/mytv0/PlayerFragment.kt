@@ -52,9 +52,9 @@ class PlayerFragment : Fragment() {
         (activity as MainActivity).ready(TAG)
     }
     
-fun disableSubtitles(player: ExoPlayer, trackSelector: DefaultTrackSelector) {
+    fun disableSubtitles(player: ExoPlayer, trackSelector: DefaultTrackSelector) {
     // Iterate through all renderers to find the one handling text tracks
-    for (i in 0 until player.rendererCount) {
+      for (i in 0 until player.rendererCount) {
         if (player.getRendererType(i) == C.TRACK_TYPE_TEXT) {
             // Build new parameters to disable the specific renderer
             val newParameters = trackSelector.buildUponParameters()
@@ -65,8 +65,8 @@ fun disableSubtitles(player: ExoPlayer, trackSelector: DefaultTrackSelector) {
             trackSelector.setParameters(newParameters)
             return // Exit once the text renderer is found and disabled
         }
+      }
     }
-}
 
     @OptIn(UnstableApi::class)
     fun updatePlayer() {
@@ -92,8 +92,8 @@ fun disableSubtitles(player: ExoPlayer, trackSelector: DefaultTrackSelector) {
         
         val trackSelector = DefaultTrackSelector(context)
         trackSelector.parameters = DefaultTrackSelector.Parameters.Builder(context)
-    .setRendererDisabled(C.TRACK_TYPE_TEXT, true)
-    .build()
+            .setRendererDisabled(C.TRACK_TYPE_TEXT, true)
+            .build()
         
         player = ExoPlayer.Builder(ctx)
             .setRenderersFactory(renderersFactory)
@@ -117,7 +117,7 @@ fun disableSubtitles(player: ExoPlayer, trackSelector: DefaultTrackSelector) {
                 }
             }
 
-        disableSubtitles(player,trackSelector)
+        
 
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 super.onIsPlayingChanged(isPlaying)
@@ -184,6 +184,8 @@ fun disableSubtitles(player: ExoPlayer, trackSelector: DefaultTrackSelector) {
                 }
             }
         })
+
+        disableSubtitles(player,trackSelector)
 
         playerView.player = player
         tvModel?.let {
