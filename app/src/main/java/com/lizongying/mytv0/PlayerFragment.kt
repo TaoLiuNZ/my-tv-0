@@ -51,6 +51,15 @@ class PlayerFragment : Fragment() {
         updatePlayer()
         (activity as MainActivity).ready(TAG)
     }
+    
+fun setSubtitlesEnabled(player: ExoPlayer, enabled: Boolean) {
+    player?.trackSelector?.let { selector ->
+        val parametersBuilder = selector.parameters.buildUpon()
+        // Set the text renderer to be disabled (true to disable, false to enable)
+        parametersBuilder.setRendererDisabled(C.TRACK_TYPE_TEXT, !enabled)
+        selector.setParameters(parametersBuilder)
+    }
+}
 
     @OptIn(UnstableApi::class)
     fun updatePlayer() {
@@ -73,10 +82,13 @@ class PlayerFragment : Fragment() {
         if (player != null) {
             player?.release()
         }
-
+        
+        val trackSelector = DefaultTrackSelector(context)
         player = ExoPlayer.Builder(ctx)
             .setRenderersFactory(renderersFactory)
+            .setTrackSelector(trackSelector)
             .build()
+        
         player?.repeatMode = REPEAT_MODE_ALL
         player?.playWhenReady = true
         player?.addListener(object : Player.Listener {
@@ -93,6 +105,8 @@ class PlayerFragment : Fragment() {
                     playerView.layoutParams = layoutParams
                 }
             }
+
+        setSubtitlesEnabled(player, false)
 
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 super.onIsPlayingChanged(isPlaying)
