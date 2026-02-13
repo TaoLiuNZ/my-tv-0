@@ -16,7 +16,7 @@
         android:keepScreenOn="true"
         app:shutter_background_color="@android:color/transparent"
         app:resize_mode="fill"
-        app:use_controller="false"
+        app:use_controller="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
