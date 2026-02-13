@@ -173,7 +173,7 @@ class PlayerFragment : Fragment() {
         })  
 
         playerView.player = player
-        playerView.subtitleView?.visibility = android.view.View.GONE
+        //playerView.subtitleView?.visibility = android.view.View.GONE
         tvModel?.let {
             play(it)
         }
