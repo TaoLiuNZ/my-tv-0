@@ -24,6 +24,7 @@ import androidx.media3.exoplayer.mediacodec.MediaCodecUtil
 import com.lizongying.mytv0.data.SourceType
 import com.lizongying.mytv0.databinding.PlayerBinding
 import com.lizongying.mytv0.models.TVModel
+import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
 
 
 class PlayerFragment : Fragment() {
@@ -184,8 +185,10 @@ class PlayerFragment : Fragment() {
                 }
             }
         })
-
-        disableSubtitles(player,trackSelector)
+		
+        if(player != null){
+            disableSubtitles(player!!,trackSelector)
+        }        
 
         playerView.player = player
         tvModel?.let {
