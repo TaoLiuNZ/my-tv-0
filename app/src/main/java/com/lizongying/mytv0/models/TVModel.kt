@@ -20,8 +20,7 @@ import com.lizongying.mytv0.data.EPG
 import com.lizongying.mytv0.data.SourceType
 import com.lizongying.mytv0.data.TV
 import com.lizongying.mytv0.requests.HttpClient
-import kotlin.math.max
-import kotlin.math.min
+import kotlin.math.*
 
 class TVModel(var tv: TV) : ViewModel() {
     var retryTimes = 0
@@ -143,7 +142,7 @@ class TVModel(var tv: TV) : ViewModel() {
                 listOf(SourceType.HLS, SourceType.PROGRESSIVE)
             }
 
-            MediaItem.fromUri(it)
+            MediaItem.Builder().setUri(it).setSubtitleConfigurations(emptyList()).build()
         }
         return _mediaItem
     }
