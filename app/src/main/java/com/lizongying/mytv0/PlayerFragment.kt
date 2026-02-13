@@ -65,6 +65,8 @@ class PlayerFragment : Fragment() {
 
         val playerView = binding.playerView
 
+        playerView.subtitleView?.visibility = android.view.View.GONE
+
         val renderersFactory = DefaultRenderersFactory(ctx)
         val playerMediaCodecSelector = PlayerMediaCodecSelector()
         renderersFactory.setMediaCodecSelector(playerMediaCodecSelector)
