@@ -25,6 +25,7 @@ import com.lizongying.mytv0.data.SourceType
 import com.lizongying.mytv0.databinding.PlayerBinding
 import com.lizongying.mytv0.models.TVModel
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
+import androidx.media3.common
 
 
 class PlayerFragment : Fragment() {
@@ -52,22 +53,6 @@ class PlayerFragment : Fragment() {
         updatePlayer()
         (activity as MainActivity).ready(TAG)
     }
-    
-    fun disableSubtitles(player: ExoPlayer, trackSelector: DefaultTrackSelector) {
-    // Iterate through all renderers to find the one handling text tracks
-      for (i in 0 until player.rendererCount) {
-        if (player.getRendererType(i) == androidx.media3:media3-common.C.TRACK_TYPE_TEXT) {
-            // Build new parameters to disable the specific renderer
-            val newParameters = trackSelector.buildUponParameters()
-                .setRendererDisabled(i, true)
-                .build()
-
-            // Apply the new parameters to the track selector
-            trackSelector.setParameters(newParameters)
-            return // Exit once the text renderer is found and disabled
-        }
-      }
-    }
 
     @OptIn(UnstableApi::class)
     fun updatePlayer() {
@@ -93,7 +78,7 @@ class PlayerFragment : Fragment() {
         
         val trackSelector = DefaultTrackSelector(ctx)
         trackSelector.parameters = DefaultTrackSelector.Parameters.Builder(ctx)
-            .setRendererDisabled(androidx.media3:media3-common.C.TRACK_TYPE_TEXT, true)
+            .setRendererDisabled(C.TRACK_TYPE_TEXT, true)
             .build()
         
         player = ExoPlayer.Builder(ctx)
@@ -184,11 +169,7 @@ class PlayerFragment : Fragment() {
                     }
                 }
             }
-        })
-		
-        if(player != null){
-            disableSubtitles(player!!,trackSelector)
-        }        
+        })  
 
         playerView.player = player
         tvModel?.let {
