@@ -25,6 +25,7 @@ import com.lizongying.mytv0.data.SourceType
 import com.lizongying.mytv0.databinding.PlayerBinding
 import com.lizongying.mytv0.models.TVModel
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
+import androidx.media3:media3-common
 
 
 class PlayerFragment : Fragment() {
@@ -91,8 +92,8 @@ class PlayerFragment : Fragment() {
             player?.release()
         }
         
-        val trackSelector = DefaultTrackSelector(context)
-        trackSelector.parameters = DefaultTrackSelector.Parameters.Builder(context)
+        val trackSelector = DefaultTrackSelector(ctx)
+        trackSelector.parameters = DefaultTrackSelector.Parameters.Builder(ctx)
             .setRendererDisabled(C.TRACK_TYPE_TEXT, true)
             .build()
         
