@@ -188,7 +188,9 @@ class TVModel(var tv: TV) : ViewModel() {
         val httpDataSource = _httpDataSource!!
 
         return when (getSourceTypeCurrent()) {
-            SourceType.HLS -> HlsMediaSource.Factory(httpDataSource).setAllowChunklessPreparation(false).createMediaSource(mediaItem)
+            SourceType.HLS -> HlsMediaSource.Factory(httpDataSource)
+               // .setAllowChunklessPreparation(false)
+                .createMediaSource(mediaItem)
             SourceType.RTSP -> if (userAgent.isEmpty()) {
                 RtspMediaSource.Factory().createMediaSource(mediaItem)
             } else {
