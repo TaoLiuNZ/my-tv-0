@@ -79,7 +79,7 @@ class PlayerFragment : Fragment() {
         val trackSelector = DefaultTrackSelector(ctx)
         trackSelector.parameters = DefaultTrackSelector.Parameters.Builder(ctx)
             .setRendererDisabled(C.TRACK_TYPE_TEXT, true)
-            .clearSelectionOverrides()
+            .clearSelectionOverrides(C.TRACK_TYPE_TEXT)
             .build()
         
         player = ExoPlayer.Builder(ctx)
